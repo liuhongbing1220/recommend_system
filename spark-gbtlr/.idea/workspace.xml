@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="da8a1428-f069-4e6f-b4a9-5f7f4a8f2132" name="Default Changelist" comment="" />
+    <list default="true" id="da8a1428-f069-4e6f-b4a9-5f7f4a8f2132" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/apache/spark/examples/ml/GBTLRExample.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/apache/spark/examples/ml/GBTLRExample.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/apache/spark/ml/gbtlr/GBTLRClassifier.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/apache/spark/ml/gbtlr/GBTLRClassifier.scala" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +95,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1572242175133</updated>
-      <workItem from="1572242178508" duration="14158000" />
+      <workItem from="1572242178508" duration="14144000" />
     </task>
     <servers />
   </component>
