@@ -55,13 +55,17 @@ class Model(object):
         din_i = tf.concat([u_emb, i_emb], axis=-1)  # B * 2H
         din_i = tf.layers.batch_normalization(inputs=din_i, name='b1')
         d_layer_1_i = tf.layers.dense(din_i, 80, activation=tf.nn.sigmoid, name='f1') # B * 80
-        d_layer_2_i = tf.layers.dense(d_layer_1_i, 40, activation=tf.nn.sigmoid, name='f2')  # B * 80
-        d_layer_3_i = tf.layers.dense(d_layer_2_i, 1, activation=None, name='f3')     # B * 80
+        d_layer_2_i = tf.layers.dense(d_layer_1_i, 40, activation=tf.nn.sigmoid, name='f2')  # B * 40
+        d_layer_3_i = tf.layers.dense(d_layer_2_i, 1, activation=None, name='f3')     # B * 1
+        d_layer_3_i = tf.reshape(d_layer_3_i, [-1])
         # fm part
-        d_layer_fm_i = tf.concat([tf.reduce_sum(u_emb*i_emb, axis=-1, keep_dims=True), tf.gather(u_emb, [0], axis=-1) + tf.gather(i_emb, [0], axis=-1)], axis=-1)
+        # <W,X> + sigma sigma<vi vj>xi xj
+        d_layer_fm_i = tf.concat([tf.reduce_sum(u_emb*i_emb, axis=-1, keep_dims=True),  # B*1
+                                        tf.gather(u_emb, [0], axis=-1) + tf.gather(i_emb, [0], axis=-1)], axis=-1)
+        
         print("d_layer_fm_i",d_layer_fm_i)
         d_layer_fm_i = tf.layers.dense(d_layer_fm_i, 1, activation=None, name='f_fm')
-        d_layer_3_i = tf.reshape(d_layer_3_i, [-1])
+        
         d_layer_fm_i = tf.reshape(d_layer_fm_i, [-1])
 
         self.logits = i_b + d_layer_3_i + d_layer_fm_i
@@ -144,8 +148,6 @@ class Model(object):
         d_layer_fm_all = tf.reshape(d_layer_fm_all, [-1, item_count])
         self.logits_all = tf.sigmoid(item_b + d_layer_3_all + d_layer_fm_all)
         #-- fcn end -------
-
-
 
     def train(self, sess, uij, l):
         loss, _ = sess.run([self.loss, self.train_op], feed_dict={
